@@ -1,13 +1,19 @@
-# Serv00 - 免费主机脚本集合（大水库）
+# Serv00 - 自动续期脚本，Fork自bg8ixz/bg8ixz/Serv00_auto_script
+
+
 ## 当前脚本
 |  脚本名称 |  用途 |备注 |
 | :------------: | :------------: | :------------: |
 |Auto_connect_SSH.py|自动SSH登录以续期||
 |alist_freebsd_update.py|自动从uubulb/alist-freebsd拉取最新版本更新||
+|Auto_connect_SSH-WeCom.py|企业微信推送方式|需要企业微信机器人Webhook Key
+|Auto_connect_SSH-TG.py|TG推送方式|需要BOT_TOKEN和CHAT_ID
+|Auto_connect_SSH-PushPLus.py|推送方式|需要PushPlus Token
 
 # 自动续期脚本说明
 ## 说明
-　　本项目基于[LINUX DO](https://linux.do)论坛佬友`maohai`的[脚本](https://linux.do/t/topic/66483/15)进行修改，在其基础上增加了`发送通知`、以及`运行日志`功能。
+　　bg8ixz/Serv00_auto_script基于[LINUX DO](https://linux.do)论坛佬友`maohai`的[脚本](https://linux.do/t/topic/66483/15)进行修改，在其基础上增加了`发送通知`、以及`运行日志`功能。本项目基于bg8ixz/Serv00_auto_script的脚本增加tg和pushplus推送方式，并通过sh脚本设置变量
+
 
 ## 发送说明
 |  主机状态/设置条件 |  说明 |发送内容 |执行动作 |
@@ -18,11 +24,13 @@
 |  自定义日期 |  固定日启动连接 |每月固定SSH连接提醒|连接SSH|
 
 ## 使用方法
-　　将脚本放到`domains`目录下，使用`chmod +x Auto_connect_SSH.py`给`Auto_connect_SSH.py`添加可执行权限。  
+　　  
   
-　　在Serv00控制台的定时任务里面新建一个定时任务，`命令`如下：
+　　进入domains目录并执行一键脚本：
 ```shell
-/home/你的用户名/domains/Auto_connect_SSH.py
+cd domains
+curl -O https://raw.githubusercontent.com/curry-he/Serv00_auto_script/master/Serv00-Renew.sh && chmod +x Serv00-Renew.sh && ./Serv00-Renew.sh
+
 ```
 #### 参考设置图
 ![参考图片](https://cdn.linux.do/uploads/default/optimized/3X/f/6/f6516994395858a19637f5acf5baeecec96ea3fa_2_690x445.png)
