@@ -2,7 +2,7 @@
 
 # 函数：获取用户输入并验证不为空
 get_input() {
-    local prompt="\$1"
+    local prompt="$1"
     local input=""
     while [ -z "$input" ]; do
         read -p "$prompt" input
@@ -15,8 +15,8 @@ get_input() {
 
 # 函数：下载 Python 文件
 download_python_file() {
-    local url="\$1"
-    local filename="\$2"
+    local url="$1"
+    local filename="$2"
     if command -v curl &> /dev/null; then
         curl -L "$url" -o "$filename"
     elif command -v wget &> /dev/null; then
@@ -36,7 +36,7 @@ download_python_file() {
 
 # 函数：安装 Python 文件所需的模块
 install_required_modules() {
-    local filename="\$1"
+    local filename="$1"
     echo "正在分析 $filename 所需的模块..."
     
     modules=$(grep -E "^import |^from " "$filename" | sed -E 's/^import //; s/^from ([^ ]+).*/\1/' | sort -u)
