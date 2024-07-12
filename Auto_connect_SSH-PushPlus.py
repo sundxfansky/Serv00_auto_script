@@ -6,18 +6,37 @@ import socket
 from datetime import datetime
 import pytz
 
-# PushPlus 设置
-PUSHPLUS_TOKEN = "" # 在pushplus公众号-功能-个人中心-开发设置里获取Token
+# # PushPlus 设置
+# PUSHPLUS_TOKEN = "" # 在pushplus公众号-功能-个人中心-开发设置里获取Token
 
-# 预先定义的常量  
-url = '你检测的地址，参考下一行注释'  
-# 测试URL 这个URL是个凉了的 url = 'https://edwgiz.serv00.net/'
+# # 预先定义的常量  
+# url = '你检测的地址，参考下一行注释'  
+# # 测试URL 这个URL是个凉了的 url = 'https://edwgiz.serv00.net/'
+# ssh_info = {  
+#     'host': 's3.serv00.com',    # 主机地址
+#     'port': 22,  
+#     'username': '你的用户名',       # 你的用户名，别写错了
+#     'password': '你的SSH密码'       # 你注册的时候收到的密码或者你自己改了的密码
+# }
+
+# 脚本获取的常量  
+url = os.environ.get('URL')  
+
+hostname = os.environ.get('HOSTNAME')
+ssh_password = os.environ.get('SSH_PASSWORD')
+username = os.environ.get('USERNAME')
+
 ssh_info = {  
-    'host': 's3.serv00.com',    # 主机地址
+    'host': hostname,    # 主机地址
     'port': 22,  
-    'username': '你的用户名',       # 你的用户名，别写错了
-    'password': '你的SSH密码'       # 你注册的时候收到的密码或者你自己改了的密码
+    'username': username,       # 你的用户名，别写错了
+    'password': ssh_password      # 你注册的时候收到的密码或者你自己改了的密码
 }
+
+
+# PushPlus 设置
+PUSHPLUS_TOKEN = os.environ.get('PUSHPLUS_TOKEN') # 在pushplus公众号-功能-个人中心-开发设置里获取Token
+
 
 # 获取当前脚本文件的绝对路径
 script_dir = os.path.dirname(os.path.abspath(__file__))
