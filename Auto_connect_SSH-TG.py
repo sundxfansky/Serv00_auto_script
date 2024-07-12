@@ -8,19 +8,37 @@ import pytz
 from telegram import Bot
 import asyncio
 
-# Telegram Bot 设置
-BOT_TOKEN = "YOUR_BOT_TOKEN"
-CHAT_ID = "YOUR_CHAT_ID"
+# # Telegram Bot 设置
+# BOT_TOKEN = "YOUR_BOT_TOKEN"
+# CHAT_ID = "YOUR_CHAT_ID"
 
-# 预先定义的常量
-url = '你检测的地址，参考下一行注释'
-# 测试URL 这个URL是个凉了的 url = 'https://edwgiz.serv00.net/'
-ssh_info = {
-    'host': 's3.serv00.com',    # 主机地址
-    'port': 22,
-    'username': '你的用户名',       # 你的用户名，别写错了
-    'password': '你的SSH密码'       # 你注册的时候收到的密码或者你自己改了的密码
+# # 预先定义的常量
+# url = '你检测的地址，参考下一行注释'
+# # 测试URL 这个URL是个凉了的 url = 'https://edwgiz.serv00.net/'
+# ssh_info = {
+#     'host': 's3.serv00.com',    # 主机地址
+#     'port': 22,
+#     'username': '你的用户名',       # 你的用户名，别写错了
+#     'password': '你的SSH密码'       # 你注册的时候收到的密码或者你自己改了的密码
+# }
+
+# 脚本获取的常量  
+url = os.environ.get('URL')  
+
+hostname = os.environ.get('HOSTNAME')
+ssh_password = os.environ.get('SSH_PASSWORD')
+username = os.environ.get('USERNAME')
+
+ssh_info = {  
+    'host': hostname,    # 主机地址
+    'port': 22,  
+    'username': username,       # 你的用户名，别写错了
+    'password': ssh_password      # 你注册的时候收到的密码或者你自己改了的密码
 }
+
+# Telegram Bot 设置
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+CHAT_ID = os.environ.get('CHAT_ID')
 
 # 获取当前脚本文件的绝对路径
 script_dir = os.path.dirname(os.path.abspath(__file__))
