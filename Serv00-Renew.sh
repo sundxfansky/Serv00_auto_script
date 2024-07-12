@@ -49,12 +49,14 @@ install_required_modules() {
     done
 }
 
-# 获取主机名
-HOSTNAME=$(hostname)
-echo "当前主机名是: $HOSTNAME"
+# 设置环境变量
+export HOSTNAME=$(hostname)
+export USERNAME=$(whoami)
+export URL="https://${USERNAME}.serv00.net"
+export SSH_PASSWORD=$(get_input "请输入SSH密码: ")
 
-# 获取SSH密码
-SSH_PASSWORD=$(get_input "请输入SSH密码: ")
+echo "当前主机名是: $HOSTNAME"
+echo "构建的 URL 是: $URL"
 
 # 初始化变量
 use_wecom=false
@@ -68,11 +70,11 @@ echo "==================================="
 echo "本脚本将帮助您设置自动推送通知。"
 echo "您可以选择以下一种或多种推送方式："
 echo ""
-echo "1. 企业微信（需要企业微信机器人 KEY）"
-echo "2. Telegram（需要BOT TOKEN和CHAT ID）"
-echo "3. PushPlus（需要PushPlus Token）"
+echo "1. 企业微信"
+echo "2. Telegram"
+echo "3. PushPlus"
 echo ""
-echo "请仔细阅读以上说明并做出选择。"
+echo "请仔细阅读以下说明并做出选择。"
 echo "==================================="
 
 # 询问用户选择推送方式
@@ -100,34 +102,31 @@ for choice in $choices; do
     esac
 done
 
-# 根据选择获取配置信息
+# 根据选择获取配置信息并设置为环境变量
 if $use_wecom; then
-    WECHAT_ROBOT_KEY=$(get_input "请输入企业微信机器人 KEY: ")
-    export WECHAT_ROBOT_KEY
+    export WECHAT_ROBOT_KEY=$(get_input "请输入企业微信机器人 KEY: ")
 fi
 
 if $use_tg; then
-    BOT_TOKEN=$(get_input "请输入 Telegram BOT TOKEN: ")
-    CHAT_ID=$(get_input "请输入 Telegram CHAT ID: ")
-    export BOT_TOKEN CHAT_ID
+    export BOT_TOKEN=$(get_input "请输入 Telegram BOT TOKEN: ")
+    export CHAT_ID=$(get_input "请输入 Telegram CHAT ID: ")
 fi
 
 if $use_pushplus; then
-    PUSHPLUS_TOKEN=$(get_input "请输入 PushPlus Token: ")
-    export PUSHPLUS_TOKEN
+    export PUSHPLUS_TOKEN=$(get_input "请输入 PushPlus Token: ")
 fi
 
 # 执行对应的 Python 脚本
 if $use_wecom; then
-    python3 Auto_connect_SSH-WeCom.py "$HOSTNAME" "$SSH_PASSWORD"
+    python3 Auto_connect_SSH-WeCom.py
 fi
 
 if $use_tg; then
-    python3 Auto_connect_SSH-TG.py "$HOSTNAME" "$SSH_PASSWORD"
+    python3 Auto_connect_SSH-TG.py
 fi
 
 if $use_pushplus; then
-    python3 Auto_connect_SSH-PushPlus.py "$HOSTNAME" "$SSH_PASSWORD"
+    python3 Auto_connect_SSH-PushPlus.py
 fi
 
 echo "所有选定的推送任务已完成。"
