@@ -35,7 +35,7 @@ ssh_info = {
 
 wechat_robot_key = os.environ.get('WECHAT_ROBOT_KEY')    
 
-webhook_url = f'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={WECHAT_ROBOT_KEY}'     # 企业微信机器人的Webhook地址
+webhook_url = f'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={wechat_robot_key}'     # 企业微信机器人的Webhook地址
 
 # 获取当前脚本文件的绝对路径
 script_dir = os.path.dirname(os.path.abspath(__file__))
